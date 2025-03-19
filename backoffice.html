@@ -10,7 +10,7 @@
     <script>
       (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
       new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src= 
       'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
       })(window,document,'script','dataLayer','GTM-5RC4VXDC');
     </script>
@@ -54,9 +54,47 @@
             text-align: center;
             margin-top: 40px;
         }
+
+        /* Style du menu */
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            text-align: center;
+            background-color: #34495e;
+            margin: 0;
+        }
+
+        nav ul li {
+            display: inline-block;
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: white;
+            font-size: 1.2em;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #e74c3c;
+        }
     </style>
 </head>
 <body>
+
+    <!-- Menu de navigation -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="destinations.html">Destinations</a></li>
+                <li><a href="about.html">À propos</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <!-- Lien dynamique qui s'affiche selon l'authentification -->
+                <li id="auth-link"></li>
+            </ul>
+        </nav>
+    </header>
 
     <h1>Tableau de bord - Statistiques</h1>
     <p>Suivi des performances du blog via Google Analytics.</p>
@@ -77,9 +115,13 @@
         // Vérification de l'authentification de l'utilisateur
         const isAuthenticated = localStorage.getItem("isAuthenticated");
 
-        if (!isAuthenticated) {
-            // Rediriger l'utilisateur vers la page de connexion s'il n'est pas authentifié
-            window.location.href = "login.html"; 
+        // Si l'utilisateur est authentifié, afficher le lien vers le backoffice, sinon afficher "Connexion"
+        const authLink = document.getElementById("auth-link");
+
+        if (isAuthenticated === "true") {
+            authLink.innerHTML = `<a href="backoffice.html">Backoffice</a>`;
+        } else {
+            authLink.innerHTML = `<a href="login.html">Connexion</a>`;
         }
 
         // Exemple de récupération des données via l'API Google Analytics (si tu l'as configurée dans api.js)
