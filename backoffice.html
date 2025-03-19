@@ -27,41 +27,43 @@
     <!-- End Google Analytics -->
 
     <style>
-        /* CSS pour le backoffice */
+        /* Global styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
             background-color: #f8f9fa;
             color: #333;
+            line-height: 1.6;
             padding: 40px;
         }
 
-        h1 {
-            color: #34495e;
+        a {
+            text-decoration: none;
+            color: inherit;
         }
 
-        #analytics-data {
-            margin-top: 20px;
-            padding: 20px;
-            background-color: #ecf0f1;
-            border-radius: 8px;
-            font-size: 1.2em;
+        h1, h2, h3 {
+            font-family: 'Georgia', serif;
+            color: #2c3e50;
         }
 
-        footer {
+        /* Header styles */
+        header {
             background-color: #34495e;
-            color: white;
-            padding: 20px;
+            color: #fff;
+            padding: 20px 0;
             text-align: center;
-            margin-top: 40px;
         }
 
-        /* Style du menu */
         nav ul {
             list-style-type: none;
             padding: 0;
             text-align: center;
-            background-color: #34495e;
-            margin: 0;
         }
 
         nav ul li {
@@ -78,9 +80,48 @@
         nav ul li a:hover {
             color: #e74c3c;
         }
+
+        /* Main content styles */
+        main {
+            padding: 40px 20px;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+
+        /* Footer styles */
+        footer {
+            background-color: #34495e;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        /* Analytics data box */
+        #analytics-data {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #ecf0f1;
+            border-radius: 8px;
+            font-size: 1.2em;
+        }
+
     </style>
 </head>
 <body>
+
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5RC4VXDC"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
 
     <!-- Menu de navigation -->
     <header>
@@ -90,7 +131,6 @@
                 <li><a href="destinations.html">Destinations</a></li>
                 <li><a href="about.html">À propos</a></li>
                 <li><a href="contact.html">Contact</a></li>
-                <!-- Lien dynamique qui s'affiche selon l'authentification -->
                 <li id="auth-link"></li>
             </ul>
         </nav>
@@ -110,12 +150,12 @@
     <!-- Intégration de votre API.js -->
     <script src="api.js"></script> <!-- Fichier contenant l'appel API -->
 
-    <!-- Vérifier si l'utilisateur est authentifié -->
+    <!-- Vérification de l'authentification -->
     <script>
         // Vérification de l'authentification de l'utilisateur
         const isAuthenticated = localStorage.getItem("isAuthenticated");
 
-        // Si l'utilisateur est authentifié, afficher le lien vers le backoffice, sinon afficher "Connexion"
+        // Lien dynamique pour la connexion ou le backoffice
         const authLink = document.getElementById("auth-link");
 
         if (isAuthenticated === "true") {
@@ -124,8 +164,8 @@
             authLink.innerHTML = `<a href="login.html">Connexion</a>`;
         }
 
-        // Exemple de récupération des données via l'API Google Analytics (si tu l'as configurée dans api.js)
-        fetch('/api/analytics') // La route que vous avez définie dans Node.js ou un autre serveur
+        // Exemple de récupération des données via l'API Google Analytics
+        fetch('/api/analytics') // Remplacer par l'API qui retourne les données de GA
             .then(response => response.json())
             .then(data => {
                 const statsDiv = document.getElementById("analytics-data");
