@@ -5,9 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Backoffice du blog de voyage pour suivre les performances des pages.">
     <title>Backoffice - Statistiques</title>
+    
+    <!-- Google Tag Manager -->
+    <script>
+      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-5RC4VXDC');
+    </script>
+    <!-- End Google Tag Manager -->
+
+    <!-- Google Analytics (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZGCPJCVC1F"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-ZGCPJCVC1F');
+    </script>
+    <!-- End Google Analytics -->
+
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
+
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5RC4VXDC"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
     <header>
         <nav>
             <ul>
@@ -34,5 +61,26 @@
     </footer>
 
     <script src="js/api.js"></script> <!-- Fichier contenant l'appel API -->
+    
+    <!-- Script pour récupérer et afficher les données d'Analytics -->
+    <script>
+        // Exemple de récupération des données via l'API Google Analytics (si tu l'as configurée dans api.js)
+        fetch('/path-to-your-api') // Remplace par le bon URL pour récupérer les données de GA
+            .then(response => response.json())
+            .then(data => {
+                const statsDiv = document.getElementById("analytics-data");
+                statsDiv.innerHTML = `
+                    <p><strong>Visites sur le site :</strong> ${data.pageviews}</p>
+                    <p><strong>Utilisateurs actifs :</strong> ${data.activeUsers}</p>
+                    <p><strong>Taux de rebond :</strong> ${data.bounceRate}%</p>
+                    <p><strong>Durée moyenne des sessions :</strong> ${data.avgSessionDuration} minutes</p>
+                `;
+            })
+            .catch(error => {
+                const statsDiv = document.getElementById("analytics-data");
+                statsDiv.innerHTML = `<p>Erreur lors du chargement des statistiques.</p>`;
+                console.error(error);
+            });
+    </script>
 </body>
 </html>
