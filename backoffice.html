@@ -62,10 +62,18 @@
 
     <script src="js/api.js"></script> <!-- Fichier contenant l'appel API -->
     
-    <!-- Script pour récupérer et afficher les données d'Analytics -->
+    <!-- Vérifier si l'utilisateur est authentifié -->
     <script>
+        // Vérification de l'authentification de l'utilisateur
+        const isAuthenticated = localStorage.getItem("isAuthenticated");
+
+        if (!isAuthenticated) {
+            // Rediriger l'utilisateur vers la page de connexion s'il n'est pas authentifié
+            window.location.href = "login.html"; 
+        }
+
         // Exemple de récupération des données via l'API Google Analytics (si tu l'as configurée dans api.js)
-        fetch('/path-to-your-api') // Remplace par le bon URL pour récupérer les données de GA
+        fetch('/api') // Remplace par le bon URL pour récupérer les données de GA
             .then(response => response.json())
             .then(data => {
                 const statsDiv = document.getElementById("analytics-data");
