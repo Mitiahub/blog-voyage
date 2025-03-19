@@ -26,42 +26,52 @@
     </script>
     <!-- End Google Analytics -->
 
-    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        /* CSS pour le backoffice */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            padding: 40px;
+        }
+
+        h1 {
+            color: #34495e;
+        }
+
+        #analytics-data {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #ecf0f1;
+            border-radius: 8px;
+            font-size: 1.2em;
+        }
+
+        footer {
+            background-color: #34495e;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            margin-top: 40px;
+        }
+    </style>
 </head>
 <body>
 
-    <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5RC4VXDC"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    <!-- End Google Tag Manager (noscript) -->
+    <h1>Tableau de bord - Statistiques</h1>
+    <p>Suivi des performances du blog via Google Analytics.</p>
 
-    <header>
-        <nav>
-            <ul>
-                <li><a href="index.html">Accueil</a></li>
-                <li><a href="destinations.html">Destinations</a></li>
-                <li><a href="about.html">À propos</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <li><a href="backoffice.html">Backoffice</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <main>
-        <h1>Tableau de bord - Statistiques</h1>
-        <p>Suivi des performances du blog via Google Analytics.</p>
-
-        <div id="analytics-data">
-            <p>Chargement des statistiques...</p>
-        </div>
-    </main>
+    <div id="analytics-data">
+        <p>Chargement des statistiques...</p>
+    </div>
 
     <footer>
         <p>&copy; 2025 Blog de Voyage</p>
     </footer>
 
-    <script src="js/api.js"></script> <!-- Fichier contenant l'appel API -->
-    
+    <!-- Intégration de votre API.js -->
+    <script src="api.js"></script> <!-- Fichier contenant l'appel API -->
+
     <!-- Vérifier si l'utilisateur est authentifié -->
     <script>
         // Vérification de l'authentification de l'utilisateur
@@ -73,22 +83,21 @@
         }
 
         // Exemple de récupération des données via l'API Google Analytics (si tu l'as configurée dans api.js)
-        fetch('/api') // Remplace par le bon URL pour récupérer les données de GA
+        fetch('/api/analytics') // La route que vous avez définie dans Node.js ou un autre serveur
             .then(response => response.json())
             .then(data => {
                 const statsDiv = document.getElementById("analytics-data");
                 statsDiv.innerHTML = `
-                    <p><strong>Visites sur le site :</strong> ${data.pageviews}</p>
-                    <p><strong>Utilisateurs actifs :</strong> ${data.activeUsers}</p>
-                    <p><strong>Taux de rebond :</strong> ${data.bounceRate}%</p>
-                    <p><strong>Durée moyenne des sessions :</strong> ${data.avgSessionDuration} minutes</p>
+                    <p><strong>Sessions :</strong> ${data.rows[0].metricValues[0].value}</p>
+                    <p><strong>Pages vues :</strong> ${data.rows[0].metricValues[1].value}</p>
                 `;
             })
             .catch(error => {
                 const statsDiv = document.getElementById("analytics-data");
-                statsDiv.innerHTML = `<p>Erreur lors du chargement des statistiques.</p>`;
+                statsDiv.innerHTML = '<p>Erreur lors du chargement des statistiques.</p>';
                 console.error(error);
             });
     </script>
+
 </body>
 </html>

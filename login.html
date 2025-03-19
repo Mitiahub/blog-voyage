@@ -81,8 +81,8 @@
         const form = document.getElementById("loginForm");
         const errorMessage = document.getElementById("error-message");
 
-        const validUsername = "admin"; // Identifiant correct
-        const validPassword = "password123"; // Mot de passe correct
+        const validUsername = "admin";
+        const validPassword = "password123";
 
         form.addEventListener("submit", function(event) {
             event.preventDefault();
@@ -91,8 +91,8 @@
             const password = document.getElementById("password").value;
 
             if (username === validUsername && password === validPassword) {
-                localStorage.setItem("isAuthenticated", "true"); // Stocker la connexion
-                window.location.href = "backoffice.html"; // Redirection vers le backoffice
+                localStorage.setItem("isAuthenticated", "true"); 
+                window.location.href = "backoffice.html";
             } else {
                 errorMessage.textContent = "Identifiant ou mot de passe incorrect.";
             }
